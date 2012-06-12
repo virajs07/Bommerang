@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="wrap_content" android:minWidth="300dp"
+	android:padding="6dip" android:gravity="center"
+	android:theme="@android:style/Theme.NoTitleBar">
+	<EditText android:id="@+id/edit_text_status"
+	android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:hint="@string/edit_text_hint_status" android:inputType="textMultiLine|textAutoComplete" />
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:padding="6dip" android:gravity="center">
+		<Button android:id="@+id/button_status_dialog_okay"
+			android:layout_width="75dip" android:layout_height="wrap_content"
+			android:text="@string/button_okay_text" android:paddingTop="4dip" />
+		<Button android:id="@+id/button_status_dialog_cancel"
+			android:layout_width="75dip" android:layout_height="wrap_content"
+			android:text="@string/button_cancel_text" android:paddingTop="4dip" />
+	</LinearLayout>
+</LinearLayout>

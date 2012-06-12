@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" 
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" 
+	android:background="@drawable/background">
+
+	<ImageView 
+		android:id="@+id/boomerang_title"
+		android:src="@drawable/title_boomerang_beta"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true" 
+		android:layout_centerHorizontal="true"
+		android:paddingTop="15dp" />
+	
+	<ImageView
+		android:id="@+id/boomerang"
+		android:src="@drawable/boomerang"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_below="@id/boomerang_title"
+		android:paddingTop="15dp"
+		android:paddingBottom="15dp"/>
+	
+	<ScrollView
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_below="@id/boomerang"
+		android:scrollbars="vertical"
+		android:scrollbarStyle="outsideOverlay">
+		<LinearLayout
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<ImageButton
+				android:id="@+id/imagebutton"
+				android:src="@drawable/dashboardbuttonimage" 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingBottom="5dp"
+				android:background="@null" />
+			<ImageButton
+				android:id="@+id/statusbutton"
+				android:src="@drawable/dashboardbuttonstatus" 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingBottom="5dp"
+				android:background="@null" />
+			<ImageButton
+				android:id="@+id/filebutton"
+				android:src="@drawable/dashboardbuttonfile" 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingBottom="5dp"
+				android:background="@null" />
+			<ImageButton
+				android:id="@+id/reviewbutton"
+				android:src="@drawable/dashboardbuttonreview" 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@null" />
+		</LinearLayout>
+	</ScrollView>
+</RelativeLayout>

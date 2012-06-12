@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:background="@drawable/background" android:paddingBottom="5dp">
+	<ImageButton android:id="@+id/okayButton" android:src="@drawable/buttonokay"
+		android:background="@null" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true" />
+	<GridView android:id="@+id/imageGrid" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layoutAnimation="@anim/layout_grid_fade"
+		android:numColumns="auto_fit" android:verticalSpacing="10dp"
+		android:horizontalSpacing="10dp" android:columnWidth="90dp"
+		android:stretchMode="columnWidth" android:gravity="center"
+		android:layout_above="@id/okayButton" />
+</RelativeLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:boom="http://schemas.android.com/apk/res/com.boomerang.gui"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical"
+	android:scrollbarStyle="outsideOverlay">
+	
+	<LinearLayout 
+		android:orientation="vertical"
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent"
+		android:background="@drawable/background" 
+		android:paddingLeft="5dp"
+		android:paddingRight="5dp">
+
+		<RatingBar 
+			android:id="@+id/reviewRating"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal" 
+			android:numStars="5"
+			android:rating="3" 
+			android:stepSize="0.5" 
+			android:paddingTop="10dp" />
+
+		<com.boomerang.customlayouts.BoomerangTextView
+			boom:text="@string/review_your_review"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			boom:textSize="17sp" 
+			android:paddingBottom="3dp"
+			android:paddingTop="3dp" />
+		<EditText 
+			android:id="@+id/reviewText" 
+			android:layout_width="fill_parent"
+			android:layout_height="120dp" 
+			android:gravity="top"
+			android:inputType="textMultiLine|textAutoComplete|textCapSentences"
+			android:textSize="14sp" />
+
+		<com.boomerang.customlayouts.BoomerangTextView
+			boom:text="@string/review_email_id"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			boom:textSize="17sp" 
+			android:paddingBottom="3dp" />
+		<EditText 
+			android:id="@+id/emailIDText" 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			android:textSize="14sp"
+			android:inputType="textEmailAddress" />
+
+		<com.boomerang.customlayouts.BoomerangTextView
+			boom:text="@string/review_first_name"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			boom:textSize="17sp" 
+			android:paddingBottom="3dp" />
+		<EditText 
+			android:id="@+id/firstNameText"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:textSize="14sp" 
+			android:inputType="textCapWords" />
+
+		<com.boomerang.customlayouts.BoomerangTextView
+			boom:text="@string/review_last_name"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			boom:textSize="17sp" 
+			android:paddingBottom="3dp" />
+		<EditText 
+			android:id="@+id/lastNameText"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:textSize="14sp" 
+			android:inputType="textCapWords" />
+
+		<LinearLayout 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			android:gravity="center_vertical"
+			android:paddingLeft="3dp">
+			<CheckBox 
+				android:id="@+id/phoneInfo" 
+				android:checked="false"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" />
+			<LinearLayout 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:orientation="vertical"
+				android:paddingLeft="3dp">
+				<com.boomerang.customlayouts.BoomerangTextView
+					android:id="@+id/phoneInfoWords" 
+					boom:text="@string/review_phone_info_words"
+					boom:textSize="16sp" 
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+				<com.boomerang.customlayouts.BoomerangTextView
+					android:id="@+id/phoneInfoHint" 
+					boom:text="@string/review_phone_info_hint"
+					boom:textSize="13sp" 
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+			</LinearLayout>
+		</LinearLayout>
+
+		<ImageButton 
+			android:id="@+id/submitButton" 
+			android:src="@drawable/buttonsubmit"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:background="@null" 
+			android:layout_gravity="center_horizontal"
+			android:paddingTop="3dp" />
+	</LinearLayout>
+</ScrollView>

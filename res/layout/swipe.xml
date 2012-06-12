@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="@drawable/background">
+
+	<FrameLayout android:id="@+id/swipeScreen"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:padding="5dp">
+		<ImageSwitcher android:id="@+id/thumbSwitcher"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:layout_centerInParent="true" />
+	</FrameLayout>
+
+	<ImageView android:id="@+id/arrow_up" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:src="@drawable/ic_arrow_up"
+		android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+		android:paddingTop="4dp" />
+	<ImageView android:id="@+id/arrow_left" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:src="@drawable/ic_arrow_left"
+		android:layout_alignParentLeft="true" android:layout_centerVertical="true"
+		android:paddingLeft="4dp" />
+	<ImageView android:id="@+id/arrow_right"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:src="@drawable/ic_arrow_right"
+		android:layout_alignParentRight="true" android:layout_centerVertical="true"
+		android:paddingRight="4dp" />
+	<ImageView android:id="@+id/arrow_down" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:src="@drawable/ic_arrow_down"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true" android:paddingBottom="4dp" />
+
+	<ImageView android:id="@+id/icon_up" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_centerHorizontal="true"
+		android:layout_below="@id/arrow_up" android:paddingTop="10dp" />
+	<ImageView android:id="@+id/icon_left" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_centerVertical="true"
+		android:layout_toRightOf="@id/arrow_left" android:paddingLeft="10dp" />
+	<ImageView android:id="@+id/icon_right" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_centerVertical="true"
+		android:layout_toLeftOf="@id/arrow_right" android:paddingRight="10dp" />
+	<ImageView android:id="@+id/icon_down" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_centerHorizontal="true"
+		android:layout_above="@id/arrow_down" android:paddingBottom="10dp" />
+
+	<FrameLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+		<SlidingDrawer android:layout_width="fill_parent"
+			android:layout_height="125dp" android:id="@+id/thumbDrawer"
+			android:handle="@+id/handle" android:content="@+id/content">
+			<RelativeLayout android:id="@+id/handle"
+				android:layout_width="fill_parent" android:layout_height="wrap_content">
+				<ImageView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:src="@drawable/ic_drawer_handle"
+					android:layout_alignParentLeft="true" />
+			</RelativeLayout>
+			<LinearLayout android:id="@+id/content"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:background="@drawable/background_drawer" android:gravity="center_vertical"
+				android:orientation="horizontal">
+				<LinearLayout android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:orientation="vertical"
+					android:gravity="center_horizontal" android:paddingRight="10dp"
+					android:paddingLeft="5dp">
+					<ImageButton android:id="@+id/addCaption"
+						android:layout_width="wrap_content" android:layout_height="wrap_content"
+						android:background="@null" android:paddingBottom="3dp"
+						android:src="@drawable/imagecontrolbuttoncaption" />
+					<ImageButton android:id="@+id/deleteImage"
+						android:layout_width="wrap_content" android:layout_height="wrap_content"
+						android:background="@null" android:src="@drawable/imagecontrolbuttondelete" />
+				</LinearLayout>
+				<Gallery android:id="@+id/thumbGallery"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"
+					android:gravity="center_vertical|left" android:spacing="16dp" />
+			</LinearLayout>
+		</SlidingDrawer>
+	</FrameLayout>
+
+</RelativeLayout>

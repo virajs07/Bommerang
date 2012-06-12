@@ -1,0 +1,287 @@
+package com.boomerang.gui;
+
+import java.io.File;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.Display;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import com.boomerang.apis.Facebook.FacebookUpload;
+import com.boomerang.customdialogs.ImageSourceDialog;
+import com.boomerang.customlayouts.StatusView;
+import com.boomerang.otherstuff.PlayView;
+
+public class SwipeScreenActivity extends Activity {
+
+	public static String type;
+
+	private FacebookUpload facebook;
+
+	private Intent receivedIntent;
+	private Intent transmittingIntent;
+
+	private ImageSourceDialog imageSourceDialog;
+	private Bitmap actualImage;
+	private String status;
+	private FrameLayout layout;
+	private PlayView viewPlay;
+	private StatusView statusView;
+	private String imageFilePathCamera = Environment
+			.getExternalStorageDirectory().getAbsolutePath() + "/tmp_image.jpg";
+
+	private static final int GET_STATUS_CODE = 0;
+	private static final int CAMERA_REQUEST_CODE = 1;
+	private static final int GALLERY_REQUEST_CODE = 2;
+	private static final int CALL_AGAIN = 3;
+
+	private static Display display;
+	private static float screenX;
+	private static float screenY;
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.swipe);
+
+		initView();
+		showDialog();
+	}
+
+	private void initView() {
+		display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
+				.getDefaultDisplay();
+		screenX = display.getWidth();
+		screenY = display.getHeight();
+
+		facebook = new FacebookUpload(this);
+
+		receivedIntent = getIntent();
+		layout = (FrameLayout) findViewById(R.id.graphics_holder);
+		type = receivedIntent.getStringExtra("Type");
+
+		status = new String();
+
+		statusView = new StatusView(this);
+
+		imageSourceDialog = new ImageSourceDialog(this,
+				android.R.style.Theme_Translucent_NoTitleBar);
+		imageSourceDialog.setCanceledOnTouchOutside(false);
+	}
+
+	private void showDialog() {
+		if (type.equals("Status")) {
+			transmitStatusIntent();
+		} else if (type.equals("Image")) {
+			imageSourceDialog.show();
+		}
+	}
+
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(receivedIntent.getIntExtra("Menu", 0), menu);
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.menu_item_status_text:
+			transmitStatusIntent();
+			return true;
+		case R.id.menu_item_status_clear:
+			layout.removeAllViews();
+			return true;
+		case R.id.menu_item_image_add:
+			imageSourceDialog.show();
+			return true;
+		case R.id.menu_item_image_change:
+			// TODO Put code for selection change
+			Toast.makeText(this, "This feature is not available yet",
+					Toast.LENGTH_SHORT).show();
+			return true;
+		case R.id.menu_item_image_edges:
+			// TODO Put code for network change
+			Toast.makeText(this, "This feature is not available yet",
+					Toast.LENGTH_SHORT).show();
+			return true;
+		case R.id.menu_item_file_selection:
+			// TODO Put code for file selection
+			Toast.makeText(this, "This feature is not available yet",
+					Toast.LENGTH_SHORT).show();
+			return true;
+		default:
+			return false;
+		}
+	}
+
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		Bitmap thumbnail;
+		String imageFilePath;
+		long imageId;
+		float scale;
+
+		Log.e("SWIPESCREEN", "" + requestCode);
+
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case GET_STATUS_CODE:
+				status = intent.getExtras().getString("Status");
+				statusView.statusText.setText(status);
+
+				viewPlay = new PlayView(this,
+						createBitmapFromView(statusView.statusText), screenX,
+						screenY);
+				layout.removeAllViewsInLayout();
+				layout.addView(viewPlay);
+				break;
+			case CAMERA_REQUEST_CODE:
+				imageFilePath = imageFilePathCamera;
+				actualImage = BitmapFactory.decodeFile(imageFilePath);
+
+				if (actualImage.getWidth() > (int) (0.4f * screenX)) {
+					scale = actualImage.getWidth() / (int) (0.4f * screenX);
+				} else {
+					scale = actualImage.getHeight() / (int) (0.4f * screenY);
+				}
+
+				thumbnail = Bitmap.createScaledBitmap(actualImage,
+						(int) (actualImage.getWidth() / scale),
+						(int) (actualImage.getHeight() / scale), false);
+
+				viewPlay = new PlayView(this, thumbnail, screenX, screenY);
+				layout.removeAllViewsInLayout();
+				layout.addView(viewPlay);
+				break;
+			case GALLERY_REQUEST_CODE:
+				imageFilePath = getImageFilePath(intent.getData());
+				imageId = getImageId(intent.getData());
+
+				thumbnail = MediaStore.Images.Thumbnails.getThumbnail(
+						getContentResolver(), imageId,
+						MediaStore.Images.Thumbnails.MINI_KIND,
+						(BitmapFactory.Options) null);
+				actualImage = BitmapFactory.decodeFile(imageFilePath);
+
+				if (thumbnail.getWidth() > (int) (0.4f * screenX)) {
+					scale = thumbnail.getWidth() / (int) (0.4f * screenX);
+				} else {
+					scale = thumbnail.getHeight() / (int) (0.4f * screenY);
+				}
+
+				viewPlay = new PlayView(this, Bitmap.createScaledBitmap(
+						thumbnail, (int) (thumbnail.getWidth() / scale),
+						(int) (thumbnail.getHeight() / scale), false), screenX,
+						screenY);
+				layout.removeAllViewsInLayout();
+				layout.addView(viewPlay);
+				break;
+			}
+		} else if (resultCode == RESULT_CANCELED && type.equals("Image")
+				|| resultCode == CALL_AGAIN) {
+			showDialog();
+		} else if (resultCode == RESULT_CANCELED && type.equals("Status")) {
+			super.onBackPressed();
+		}
+	}
+
+	public Bitmap createBitmapFromView(View view) {
+		Bitmap b = Bitmap.createBitmap((int) (0.4f * screenX),
+				(int) (0.4f * screenY), Bitmap.Config.ARGB_8888);
+		Canvas c = new Canvas(b);
+		view.layout(0, 0, (int) (0.4f * screenX), (int) (0.4f * screenY));
+		view.draw(c);
+		return b;
+	}
+
+	private String getImageFilePath(Uri selectedImage) {
+		String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+		Cursor cursor = getContentResolver().query(selectedImage,
+				filePathColumn, null, null, null);
+		cursor.moveToFirst();
+		int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+		String filePath = cursor.getString(columnIndex);
+		cursor.close();
+
+		return filePath;
+	}
+
+	private long getImageId(Uri selectedImage) {
+		String[] filePathColumn = { MediaStore.Images.Media._ID };
+
+		Cursor cursor = getContentResolver().query(selectedImage,
+				filePathColumn, null, null, null);
+		cursor.moveToFirst();
+
+		int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+		long id = cursor.getLong(columnIndex);
+		cursor.close();
+
+		return id;
+	}
+
+	public void transmitCameraIntent() {
+		transmittingIntent = new Intent(
+				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		transmittingIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+				Uri.fromFile(new File(imageFilePathCamera)));
+		startActivityForResult(transmittingIntent, CAMERA_REQUEST_CODE);
+	}
+
+	public void transmitGalleryIntent() {
+		transmittingIntent = new Intent(Intent.ACTION_PICK,
+				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(transmittingIntent, GALLERY_REQUEST_CODE);
+	}
+
+	public void transmitStatusIntent() {
+		transmittingIntent = new Intent().setClass(this,
+				StatusInputActivity.class);
+		transmittingIntent.putExtra("Status", status);
+		startActivityForResult(transmittingIntent, GET_STATUS_CODE);
+	}
+
+	public void uploadPhotoTo(String to) {
+		if (actualImage != null) {
+			if (to.equals("Facebook")) {
+				facebook.postImage(actualImage, "From Boomerang Beta");
+			}
+		} else {
+			Toast.makeText(this, "Error. No image selected.",
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	public void uploadStatusTo(String to) {
+		System.out.println(status);
+		if (status != null) {
+			if (to.equals("Facebook")) {
+				facebook.postMessage(status);
+			}
+		} else {
+			Toast.makeText(this, "Error. Status is empty.", Toast.LENGTH_SHORT)
+					.show();
+		}
+	}
+
+	public void uploadFileTo(String to) {
+		// TODO code for fileuploading
+	}
+
+}

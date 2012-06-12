@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Boomerang Beta</string>
+	<string name="button_okay_text">Okay</string>
+	<string name="button_cancel_text">Cancel</string>
+	<string name="dashboard_button_image">Image</string>
+	<string name="dashboard_button_status">Status</string>
+	<string name="dashboard_button_file">File</string>
+	<string name="dashboard_button_review">Review</string>
+	<string name="menu_item_dashboard_settings">Settings</string>
+	<string name="menu_item_image_add">Add image</string>
+	<string name="menu_item_image_change">Change selection</string>
+	<string name="menu_item_image_edges">Change edges</string>
+	<string name="menu_item_status_text">Edit text</string>
+	<string name="menu_item_file_selection">Add/Remove files</string>
+	<string name="submenu_item_add_image_camera">Camera</string>
+	<string name="submenu_item_add_image_gallery">Gallery</string>
+	<string name="edit_text_hint_status">Enter status...</string>
+	<string name="review_your_review">Your review (required):</string>
+	<string name="review_first_name">First name:</string>
+	<string name="review_last_name">Last name:</string>
+	<string name="review_email_id">Email ID (required):</string>
+	<string name="review_phone_info_words">Submit phone information</string>
+	<string name="review_phone_info_hint">So that we can make Boomerang better.</string>
+</resources>

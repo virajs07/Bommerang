@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="BoomerangTheme" parent="@android:style/Theme.NoTitleBar">
+		<item name="android:editTextStyle">@style/boomerangEditText</item>
+		<item name="android:textViewStyle">@style/boomerangTextView</item>
+		<item name="android:ratingBarStyle">@style/boomerangRatingBar</item>
+		<item name="android:checkboxStyle">@style/boomerangCheckbox</item>
+		
+		<!-- Scrollbar Attributes -->
+		<item name="android:scrollbarThumbHorizontal">@drawable/scrollbarthumb_horizontal</item>
+		<item name="android:scrollbarThumbVertical">@drawable/scrollbarthumb_vertical</item>
+	</style>
+</resources>
